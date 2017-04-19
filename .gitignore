@@ -13,3 +13,4 @@
 /tmp
 log
 .git
+.byebug_history

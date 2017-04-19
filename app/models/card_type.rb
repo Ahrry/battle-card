@@ -2,12 +2,14 @@ class CardType
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include Finder
+
   field :name, type: String
   field :offensive_objects, type: Hash, default: {} # example { force: 5 }
   field :defense_objects, type: Hash, default: {} # example { magic_shield: 0.5 }
   field :level, type: Integer, default: 1
 
-  has_many :cards
+  has_many :cards, dependent: :destroy
 
   validates_presence_of :name, :level
   validates_uniqueness_of :name

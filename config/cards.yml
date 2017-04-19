@@ -4,6 +4,7 @@ dark_vador: &dark_vador
   offensive_capacity: 9
   defense_capacity: 7
   type: "jedi"
+  level:
 
 luke_skywalker: &luke_skywalker
   name: "Luke Skywalker"

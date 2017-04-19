@@ -1,0 +1,35 @@
+jedi: &jedi
+  offensive:
+    lightsaber: 7
+    force: 8
+  defense:
+    force: 6
+
+droid: &droid
+  offensive:
+    trap: 5
+  defense:
+    armor: 8
+
+pilot: &pilot
+  offensive:
+    laser_gun: 6
+  defense:
+    spaceship: 9
+
+card_types: &card_types
+  jedi:
+    <<: *jedi
+  droid:
+    <<: *droid
+  pilot:
+    <<: *pilot
+
+development:
+  <<: *card_types
+
+test:
+  <<: *card_types
+
+production:
+  <<: *card_types

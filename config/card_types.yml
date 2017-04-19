@@ -1,21 +1,27 @@
 jedi: &jedi
-  offensive:
+  name: "jedi"
+  offensive_objects:
     lightsaber: 7
     force: 8
-  defense:
+  defense_objects:
     force: 6
+  level: 8
 
 droid: &droid
-  offensive:
+  name: "droid"
+  offensive_objects:
     trap: 5
-  defense:
+  defense_objects:
     armor: 8
+  level: 5
 
 pilot: &pilot
-  offensive:
+  name: "pilot"
+  offensive_objects:
     laser_gun: 6
-  defense:
+  defense_objects:
     spaceship: 9
+  level: 7
 
 card_types: &card_types
   jedi:

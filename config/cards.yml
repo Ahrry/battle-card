@@ -1,0 +1,46 @@
+dark_vador: &dark_vador
+  name: "Dark Vador"
+  level: 89
+  offensive_capacity: 9
+  defense_capacity: 7
+  type: "jedi"
+
+luke_skywalker: &luke_skywalker
+  name: "Luke Skywalker"
+  level: 78
+  offensive_capacity: 8
+  defense_capacity: 5
+  type: "jedi"
+
+r2d2: &r2d2
+  name: "r2d2"
+  level: 64
+  offensive_capacity: 5
+  defense_capacity: 10
+  type: "droid"
+
+han_solo: &han_solo
+  name: "Han Solo"
+  level: 90
+  offensive_capacity: 9
+  defense_capacity: 5
+  type: "pilot"
+
+cards: &cards
+  dark_vador:
+    <<: *dark_vador
+  luke_skywalker:
+    <<: *luke_skywalker
+  r2d2:
+    <<: *r2d2
+  han_solo:
+    <<: *han_solo
+
+development:
+  <<: *cards
+
+test:
+  <<: *cards
+
+production:
+  <<: *cards

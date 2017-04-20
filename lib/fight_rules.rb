@@ -21,25 +21,27 @@ module FightRules
   end
 
   def default_attack(card)
-    (card.offensive_capacity / 10) * card.level
+    (card.offensive_capacity.round(2) / 10) * card.level
   end
 
   def jedi_attack(card)
     card_type = card.card_type
     return unless card_type.is_jedi?
     damage = default_attack(card)
-    damage + (card_type.level / 10) * card_type.offensive_objects.values.sample
+    damage += (card_type.level.round(2) / 10) * card_type.offensive_objects.values.sample
+    damage.round
   end
 
   def droid_attack(card)
     card_type = card.card_type
     return unless card_type.is_droid?
-    damage = (card.offensive_capacity / card.defense_capacity) * card.level
+    damage = (card.offensive_capacity.round(2) / card.defense_capacity.round(2)) * card.level
     card_type = card.card_type
     card_type.offensive_objects.values.each do |value|
       damage += value
     end
-    damage + card_type.level
+    damage += card_type.level
+    damage.round
   end
 
   def pilot_attack(card)
@@ -47,9 +49,9 @@ module FightRules
     return unless card_type.is_pilot?
     damage = default_attack(card)
     card_type.offensive_objects.values.each do |value|
-      damage += (card_type.level / 10) * value
+      damage += (card_type.level.round(2) / 10) * value
     end
-    damage
+    damage.round
   end
 
 end

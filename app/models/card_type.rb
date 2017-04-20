@@ -17,7 +17,7 @@ class CardType
   field :defense_objects, type: Hash, default: {} # example { magic_shield: 0.5 }
   field :level, type: Integer, default: 1
 
-  has_many :cards, dependent: :destroy
+  has_many :card_to_plays, dependent: :destroy
 
   validates_presence_of :name, :level
   validates_uniqueness_of :name

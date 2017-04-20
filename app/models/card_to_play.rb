@@ -1,4 +1,5 @@
-class Card
+class CardToPlay
+
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -10,8 +11,9 @@ class Card
 
   belongs_to :card_type
 
-  validates_presence_of :name, :level, :offensive_capacity, :defense_capacity
+  validates_presence_of :name, :level, :offensive_capacity, :defense_capacity, :card_type_id
   validates_inclusion_of :level, in: 1..100
   validates_inclusion_of :offensive_capacity, in: 1..10
   validates_inclusion_of :defense_capacity, in: 1..10
+
 end

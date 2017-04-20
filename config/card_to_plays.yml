@@ -4,7 +4,6 @@ dark_vador: &dark_vador
   offensive_capacity: 9
   defense_capacity: 7
   type: "jedi"
-  level:
 
 luke_skywalker: &luke_skywalker
   name: "Luke Skywalker"
@@ -27,7 +26,7 @@ han_solo: &han_solo
   defense_capacity: 5
   type: "pilot"
 
-cards: &cards
+card_to_plays: &card_to_plays
   dark_vador:
     <<: *dark_vador
   luke_skywalker:
@@ -38,10 +37,10 @@ cards: &cards
     <<: *han_solo
 
 development:
-  <<: *cards
+  <<: *card_to_plays
 
 test:
-  <<: *cards
+  <<: *card_to_plays
 
 production:
-  <<: *cards
+  <<: *card_to_plays

@@ -9,7 +9,7 @@ namespace :card_type do
       if type.save
         number_of_created_card_types += 1
       else
-        puts "Not save! #{params.name} => #{type.errors.full_messages}"
+        puts "Not save! #{params["name"]} => #{type.errors.full_messages}"
       end
     end
     puts "**** #{number_of_created_card_types} / #{number_of_card_types} card types has been created ****"

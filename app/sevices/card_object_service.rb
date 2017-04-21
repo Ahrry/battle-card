@@ -12,7 +12,7 @@ module CardObjectService
   end
 
   def remaining_damage(damage, object_name, level)
-    case object_name
+    case object_name.to_s
     when DEFENSE_ARMOR
       remaining_damage_from_armor(damage)
     else

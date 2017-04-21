@@ -24,6 +24,10 @@ class CardType
   validates_inclusion_of :level, in: 0..10
   validates_inclusion_of :name, in: TYPES
 
+  def have_defense_objects?
+    defense_objects.count > 0
+  end
+
   def self.build_objects(array, type)
     result = {}
     array.each do |value|

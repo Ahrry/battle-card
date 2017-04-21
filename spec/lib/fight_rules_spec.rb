@@ -14,10 +14,11 @@ RSpec.describe FightRules, type: :lib do
       FactoryGirl.create :card_type, params
     end
 
-    APP_DEFAULT_CARD_TO_PLAYS.each do |card_to_play|
+    APP_DEFAULT_CARD_TO_PLAYS.each_with_index do |card_to_play, index|
       params = card_to_play.last.clone
       card_type = CardType.find_by_name(params.delete("type"))
-      FactoryGirl.create :card_to_play, card_type: card_type, name: params["name"], level: params["level"], offensive_capacity: params["offensive_capacity"], defense_capacity: params["defense_capacity"]
+      card_to_play = FactoryGirl.create :card_to_play, card_type: card_type, name: params["name"], level: params["level"], offensive_capacity: params["offensive_capacity"], defense_capacity: params["defense_capacity"]
+      instance_variable_set("@card_#{index + 1}", card_to_play)
     end
   end
 
@@ -56,6 +57,20 @@ RSpec.describe FightRules, type: :lib do
     card = card_type.card_to_plays.first
     damage = FightRules.pilot_attack(card)
     expect(damage).to be_nil
+  end
+
+  it "should RETURN DAMAGE of specific CARD", focus: true do
+    damage = FightRules.attack(@card_1)
+    expect([86, 87]).to include(damage)
+
+    damage = FightRules.attack(@card_2)
+    expect(damage).to eq(69)
+
+    damage = FightRules.attack(@card_3)
+    expect(damage).to eq(42)
+
+    damage = FightRules.attack(@card_4)
+    expect(damage).to eq(85)
   end
 
 end

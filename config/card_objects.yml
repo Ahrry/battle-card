@@ -1,0 +1,19 @@
+card_objects: &card_objects
+  offensive:
+    lightsaber: 7
+    force: 8
+    trap: 5
+    laser_gun: 6
+  defense:
+    force: 6
+    armor: 8
+    spaceship: 9
+
+development:
+  <<: *card_objects
+
+test:
+  <<: *card_objects
+
+production:
+  <<: *card_objects

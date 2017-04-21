@@ -23,4 +23,12 @@ class CardType
   validates_uniqueness_of :name
   validates_inclusion_of :level, in: 0..10
   validates_inclusion_of :name, in: TYPES
+
+  def self.build_objects(array, type)
+    result = {}
+    array.each do |value|
+      result.merge!({ value.to_sym => APP_CARD_OBJECTS[type][value] })
+    end
+    result
+  end
 end

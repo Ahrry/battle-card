@@ -4,7 +4,13 @@ RSpec.describe FightRules, type: :lib do
 
   before(:each) do
     APP_DEFAULT_CARD_TYPES.each do |card_type|
-      params = card_type.last
+      params = card_type.last.clone
+      offensive_objects = params.delete("offensive_objects")
+      defense_objects = params.delete("defense_objects")
+      params.merge!({
+        offensive_objects: CardType.build_objects(offensive_objects, "offensive"),
+        defense_objects: CardType.build_objects(defense_objects, "defense")
+      })
       FactoryGirl.create :card_type, params
     end
 

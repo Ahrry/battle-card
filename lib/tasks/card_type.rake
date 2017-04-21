@@ -5,6 +5,12 @@ namespace :card_type do
     number_of_created_card_types = 0
     APP_DEFAULT_CARD_TYPES.each do |card_type|
       params = card_type.last
+      offensive_objects = params.delete("offensive_objects")
+      defense_objects = params.delete("defense_objects")
+      params.merge!({
+        offensive_objects: CardType.build_objects(offensive_objects, "offensive"),
+        defense_objects: CardType.build_objects(defense_objects, "defense")
+      })
       type = CardType.new(params)
       if type.save
         number_of_created_card_types += 1

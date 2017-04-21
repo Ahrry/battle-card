@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   before(:each) do
-    User.all.destroy
   end
 
   it "it should create an User" do

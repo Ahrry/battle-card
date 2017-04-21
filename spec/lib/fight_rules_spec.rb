@@ -3,15 +3,13 @@ require "fight_rules"
 RSpec.describe FightRules, type: :lib do
 
   before(:each) do
-    CardType.all.destroy
     APP_DEFAULT_CARD_TYPES.each do |card_type|
       params = card_type.last
       FactoryGirl.create :card_type, params
     end
 
-    CardToPlay.all.destroy
     APP_DEFAULT_CARD_TO_PLAYS.each do |card_to_play|
-      params = card_to_play.last
+      params = card_to_play.last.clone
       card_type = CardType.find_by_name(params.delete("type"))
       FactoryGirl.create :card_to_play, card_type: card_type, name: params["name"], level: params["level"], offensive_capacity: params["offensive_capacity"], defense_capacity: params["defense_capacity"]
     end

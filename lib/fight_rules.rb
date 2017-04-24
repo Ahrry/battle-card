@@ -1,9 +1,6 @@
 module FightRules
   module_function
 
-  def fight
-  end
-
   def attack(card)
     case card.card_type.name
     when CardType::JEDI

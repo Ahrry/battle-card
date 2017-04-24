@@ -77,7 +77,7 @@ RSpec.describe FightRules, type: :lib do
     expect(damage).to eq(85)
   end
 
-  it "should RETURN REMAINING DAMAGE of specific card AFTER DEFENSE", focus: true do
+  it "should RETURN REMAINING DAMAGE of specific card AFTER DEFENSE" do
     damage = FightRules.attack(@card_2)
     expect([68, 69]).to include(damage)
     options = { type_name: @card_2.card_type.name }

@@ -17,9 +17,9 @@ module FightRules
     end
   end
 
-  def protect(damage, card, options={})
+  def defend(damage, card, options={})
     have_defense_objects = card.card_type.have_defense_objects?
-    have_same_card_type = card == otions[:type]
+    have_same_card_type = card.card_type.name == options[:type_name]
 
     return damage if !have_same_card_type && !have_defense_objects
 
@@ -28,11 +28,12 @@ module FightRules
     if have_defense_objects
       remaining_damage = 0
       defense_objects = card.card_type.defense_objects
-      defense_objects.each do |defense_object|
-        remaining_damage += CardObjectService.remaining_damage(damage, defense_object.keys.first, defense_object.values.first)
+      defense_keys = defense_objects.keys
+      defense_keys.each do |key|
+        remaining_damage += CardObjectService.remaining_damage(damage, key, defense_objects[key])
       end
       # Need if you have many defense objects (average of remaining damage)
-      remaining_damage = remaining_damage / defense_objects.count
+      remaining_damage = remaining_damage / defense_keys.count
     end
 
     if have_same_card_type

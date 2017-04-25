@@ -13,8 +13,8 @@ class CardType
   end
 
   field :name, type: String
-  field :offensive_objects, type: Hash, default: {} # example { force: 5 }
-  field :defense_objects, type: Hash, default: {} # example { magic_shield: 0.5 }
+  field :offensive_objects, type: Hash, default: {} # example { force: 5, lightsaber: 10 }
+  field :defense_objects, type: Hash, default: {} # example { magic_shield: 2 }
   field :level, type: Integer, default: 1
 
   has_many :card_to_plays, dependent: :destroy

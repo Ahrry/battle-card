@@ -2,26 +2,6 @@ require "fight_rules"
 
 RSpec.describe FightRules, type: :lib do
 
-  before(:each) do
-    APP_DEFAULT_CARD_TYPES.each do |card_type|
-      params = card_type.last.clone
-      offensive_objects = params.delete("offensive_objects")
-      defense_objects = params.delete("defense_objects")
-      params.merge!({
-        offensive_objects: CardType.build_objects(offensive_objects, "offensive"),
-        defense_objects: CardType.build_objects(defense_objects, "defense")
-      })
-      FactoryGirl.create :card_type, params
-    end
-
-    APP_DEFAULT_CARD_TO_PLAYS.each_with_index do |card_to_play, index|
-      params = card_to_play.last.clone
-      card_type = CardType.find_by_name(params.delete("type"))
-      card_to_play = FactoryGirl.create :card_to_play, card_type: card_type, name: params["name"], level: params["level"], offensive_capacity: params["offensive_capacity"], defense_capacity: params["defense_capacity"]
-      instance_variable_set("@card_#{index + 1}", card_to_play)
-    end
-  end
-
   it "should return ONLY DAMAGE of JEDI" do
     card_type = CardType.find_by_name(CardType::JEDI)
     card = card_type.card_to_plays.first

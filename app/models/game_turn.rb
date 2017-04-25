@@ -4,6 +4,7 @@ class GameTurn
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  # TODO factorize STATUSES with concern HasStatuses
   STATUSES = ["in_progress", "terminated"]
   STATUSES.each do |status|
     self.const_set(status.upcase, status)

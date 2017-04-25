@@ -4,6 +4,7 @@ class Hand
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  # TODO factorize STATUSES with concern HasStatuses
   STATUSES = ["distributed", "played"]
   STATUSES.each do |status|
     self.const_set(status.upcase, status)

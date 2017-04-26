@@ -5,8 +5,10 @@ class Game
   include Mongoid::Timestamps
 
   NUMBER_OF_CARDS_BY_DECK = 3
+  NUMBER_OF_PLAYERS = 2
 
   field :name, type: String
+  field :players, type: Array, default: []
 
   has_many :game_turns
   has_many :hands
@@ -29,6 +31,12 @@ class Game
     return unless ranking
     return if ranking[1] && ranking[1]["_id"] == ranking[0]["_id"]
     return User.find(ranking[0]["_id"])
+  end
+
+  def check_number_of_player
+    if self.players.count > NUMBER_OF_PLAYERS
+      errors.add(:players, "")
+    end
   end
 
 end

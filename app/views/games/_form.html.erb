@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @game do |f| %>
+      <%= f.text_field :name, class: "form-control input-lg", placeholder: "choose the game name..." %>
+      <div style="margin-top:10px;">
+        <%= f.submit class: "btn btn-primary pull-right" %>
+      </div>
+    <% end %>
+  </div>
+</div>

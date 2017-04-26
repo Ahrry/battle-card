@@ -1,28 +1,9 @@
-== README
+# Quick start
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Compile the project and launch it
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+```
+  bundle install
+  bundle exec rake card_type:generate_card_types
+  bundle exec rake card_to_play:generate_default_card
+```

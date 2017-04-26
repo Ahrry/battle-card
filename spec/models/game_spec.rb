@@ -30,9 +30,14 @@ RSpec.describe Game, type: :model do
     expect(deck_2.last.status).to eq(Hand::DISTRIBUTED)
 
     # play first turn and check states
-    game_turn = FactoryGirl.create :game_turn, game: @game, hand_one: deck_1[0], hand_two: deck_2[0]
+    game_turn = FactoryGirl.build :game_turn, game: @game, hand_one: deck_1[0], hand_two: deck_2[0]
+    game_turn.save
     expect(game_turn.winner).to be_nil
     expect(game_turn.status).to eq(GameTurn::IN_PROGRESS)
+
+    # check status hand has been changed to played
+    expect(game_turn.hand_one.reload.status).to eq(Hand::PLAYED)
+    expect(game_turn.hand_two.reload.status).to eq(Hand::PLAYED)
 
     game_turn.battle!
     game_turn.equal? ? expect(game_turn.winner).to(be_nil) : expect(game_turn.winner).not_to(be_nil)

@@ -14,6 +14,7 @@ class Game
   has_many :hands
 
   validates_presence_of :name
+  validate :check_number_of_player
 
   def distribute_cards(user)
     return unless CardToPlay.first
@@ -35,7 +36,7 @@ class Game
 
   def check_number_of_player
     if self.players.count > NUMBER_OF_PLAYERS
-      errors.add(:players, "")
+      errors.add(:players, "maximum is #{NUMBER_OF_PLAYERS}")
     end
   end
 

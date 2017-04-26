@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
 
   before(:each) do
-    @user_1 = FactoryGirl.create :user
-    @user_2 = FactoryGirl.create :user
     @game = FactoryGirl.create :game
+    @user_1 = User.find_or_create({ username: "user_1" }, @game)
+    @user_2 = User.find_or_create({ username: "user_2" }, @game)
   end
 
   it "should PLAY a full game and RETURN the WINNER" do
@@ -52,6 +52,17 @@ RSpec.describe Game, type: :model do
     winner = @game.winner
     winner = winner.class if winner
     expect([nil, User]).to include(winner)
+  end
+
+  it "it should add maximum Game::NUMBER_OF_PLAYERS players in game" do
+    game = FactoryGirl.create :game
+    expect(game.players.count).to eq(0)
+    User.find_or_create({ username: "ironman" }, game)
+    User.find_or_create({ username: "batman" }, game)
+    User.find_or_create({ username: "spiderman" }, game)
+    expect(game.players.count).to eq(Game::NUMBER_OF_PLAYERS)
+    expect(game.valid?).to eq(true)
+    expect(game.persisted?).to eq(true)
   end
 
 end

@@ -1,6 +1,6 @@
-  namespace :card_to_play do
+namespace :card_to_play do
 
-    task :generate_default_card => :environment do
+  task :generate_default_card => :environment do
     number_of_default_cards = APP_DEFAULT_CARD_TO_PLAYS.count
     number_of_default_created_cards = 0
     APP_DEFAULT_CARD_TO_PLAYS.each do |card|
@@ -19,5 +19,5 @@
     end
     puts "**** #{number_of_default_created_cards} / #{number_of_default_cards} default cards has been created ****"
   end
-
+  
 end

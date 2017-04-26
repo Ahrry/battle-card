@@ -16,12 +16,14 @@ class GameTurn
   field :status, default: IN_PROGRESS
 
   belongs_to :game
-  belongs_to :hand_one, class_name: "Hand", foreign_key: :hand_1_id
-  belongs_to :hand_two, class_name: "Hand", foreign_key: :hand_2_id
+  belongs_to :hand_one, class_name: "Hand", foreign_key: :hand_one_id
+  belongs_to :hand_two, class_name: "Hand", foreign_key: :hand_two_id
   belongs_to :winner, class_name: "User", foreign_key: :winner_id
 
-  validates_presence_of :game_id, :hand_1_id, :hand_2_id
+  validates_presence_of :game_id, :hand_one_id, :hand_two_id
   validates_inclusion_of :status, in: STATUSES
+
+  after_create :change_hands_status
 
   def battle!
     card_one = hand_one.card_to_play
@@ -42,6 +44,12 @@ class GameTurn
 
   def equal?
     self.status == TERMINATED && !self.winner
+  end
+
+  def change_hands_status
+    params = { status: Hand::PLAYED }
+    Hand.find(self.hand_one_id).update_attributes(params)
+    Hand.find(self.hand_two_id).update_attributes(params)
   end
 
 end

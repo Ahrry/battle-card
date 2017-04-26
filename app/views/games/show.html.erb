@@ -1,0 +1,48 @@
+<%= render partial: "shared/breadcrumb" %>
+<h2 class="text-center"><%= @game.name %></h2>
+
+<%= form_for [@game, @game.game_turns.new] do |f| %>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render partial: "deck", locals: { f: f, player: @player_1, hands: @hands_of_player_1, field: "hand_one_id", game: @game } %>
+    </div>
+
+    <div class="col-md-6">
+      <%= render partial: "shared/alert_block" %>
+
+      <div class="jumbotron">
+        <% if @selected_card_1.present? && @selected_card_2.present? %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= render partial: "card", locals: { card: @selected_card_1 } %>
+            </div>
+            <div class="col-md-6">
+              <%= render partial: "card", locals: { card: @selected_card_2 } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @selected_card_1.present? && @selected_card_2.present? %>
+        <%= link_to "Battle", battle_game_game_turn_path(@game, @game_turn_in_progress), method: :put, class: "btn btn-warning col-md-12" %>
+      <% elsif @hands_of_player_1.any? && @hands_of_player_2.any? %>
+        <%= f.submit "Choose", class: "btn btn-primary col-md-12" %>
+      <% elsif @game_turns_terminated.any? %>
+        <h3 class="text-center text-danger">
+          <% winner = @game.winner %>
+          <%= winner.present? ? "**** THE WINNER IS #{winner.username} ****" : "**** ÉGALITÉ ****" %>
+        </h3>
+      <% end %>
+    </div>
+
+    <div class="col-md-3">
+      <%= render partial: "deck", locals: { f: f, player: @player_2, hands: @hands_of_player_2, field: "hand_two_id", game: @game } %>
+    </div>
+
+  </div>
+
+<% end %>
+
+<%= render partial: "game_turns_list", locals: { game_turns: @game_turns_terminated, user_1: @player_1, user_2: @player_2 } %>

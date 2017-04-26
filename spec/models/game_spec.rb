@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
 
   before(:each) do
-    @user_1 = FactoryGirl.create :user
-    @user_2 = FactoryGirl.create :user
     @game = FactoryGirl.create :game
+    @user_1 = User.find_or_create({ username: "user_1" }, @game)
+    @user_2 = User.find_or_create({ username: "user_2" }, @game)
   end
 
   it "should PLAY a full game and RETURN the WINNER" do
@@ -30,9 +30,14 @@ RSpec.describe Game, type: :model do
     expect(deck_2.last.status).to eq(Hand::DISTRIBUTED)
 
     # play first turn and check states
-    game_turn = FactoryGirl.create :game_turn, game: @game, hand_one: deck_1[0], hand_two: deck_2[0]
+    game_turn = FactoryGirl.build :game_turn, game: @game, hand_one: deck_1[0], hand_two: deck_2[0]
+    game_turn.save
     expect(game_turn.winner).to be_nil
     expect(game_turn.status).to eq(GameTurn::IN_PROGRESS)
+
+    # check status hand has been changed to played
+    expect(game_turn.hand_one.reload.status).to eq(Hand::PLAYED)
+    expect(game_turn.hand_two.reload.status).to eq(Hand::PLAYED)
 
     game_turn.battle!
     game_turn.equal? ? expect(game_turn.winner).to(be_nil) : expect(game_turn.winner).not_to(be_nil)
@@ -52,6 +57,17 @@ RSpec.describe Game, type: :model do
     winner = @game.winner
     winner = winner.class if winner
     expect([nil, User]).to include(winner)
+  end
+
+  it "it should add maximum Game::NUMBER_OF_PLAYERS players in game" do
+    game = FactoryGirl.create :game
+    expect(game.players.count).to eq(0)
+    User.find_or_create({ username: "ironman" }, game)
+    User.find_or_create({ username: "batman" }, game)
+    User.find_or_create({ username: "spiderman" }, game)
+    expect(game.players.count).to eq(Game::NUMBER_OF_PLAYERS)
+    expect(game.valid?).to eq(true)
+    expect(game.persisted?).to eq(true)
   end
 
 end

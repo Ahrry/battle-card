@@ -1,0 +1,15 @@
+<h4 class="text-center"><%= player.username %></h4>
+<% if hands.any? %>
+  <div class="row">
+    <% hands.each do |hand| %>
+      <div class="col-md-4">
+        <div class="card card-thumb text-center">
+          <%= f.radio_button field.to_sym, hand.id %>
+          <p>Card</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <%= link_to "distribute cards", distribute_cards_game_hands_path(game, user_id: player.id), method: :post, class: "btn btn-primary col-md-12" %>
+<% end %>

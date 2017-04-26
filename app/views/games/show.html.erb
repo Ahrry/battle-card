@@ -1,2 +1,87 @@
 <%= render partial: "shared/breadcrumb" %>
 <h2 class="text-center"><%= @game.name %></h2>
+
+<%= form_for [@game, @game.game_turns.new] do |f| %>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <h4 class="text-center"><%= @player_1.username %></h4>
+      <% if @hands_of_player_1.any? %>
+        <div class="row">
+          <% @hands_of_player_1.each do |hand| %>
+            <div class="col-md-4">
+              <div class="card card-thumb text-center">
+                <%= f.radio_button :hand_one_id, hand.id %>
+                <p>Card</p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to "distribute cards", distribute_cards_game_hands_path(@game, user_id: @player_1.id), method: :post, class: "btn btn-primary col-md-12" %>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+      <div class="jumbotron">
+        <% if @selected_card_1.present? && @selected_card_2.present? %>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card card-big">
+                <p><strong><%= @selected_card_1.name %></strong></p>
+                <p><%= @selected_card_1.card_type.name %></p>
+                <p>
+                  Level : <%= @selected_card_1.level %><br />
+                  Attack : <%= @selected_card_1.offensive_capacity %><br />
+                  Defense : <%= @selected_card_1.defense_capacity %>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card card-big">
+                <p><strong><%= @selected_card_2.name %></strong></p>
+                <p><%= @selected_card_2.card_type.name %></p>
+                <p>
+                  Level : <%= @selected_card_2.level %><br />
+                  Attack : <%= @selected_card_2.offensive_capacity %><br />
+                  Defense : <%= @selected_card_2.defense_capacity %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% if @selected_card_1.present? && @selected_card_2.present? %>
+        <%= link_to "Fight", "#", class: "btn btn-warning col-md-12" %>
+      <% elsif @hands_of_player_1.any? && @hands_of_player_2.any? %>
+        <%= f.submit "Choose", class: "btn btn-primary col-md-12" %>
+      <% end %>
+    </div>
+
+    <div class="col-md-3">
+      <h4 class="text-center"><%= @player_2.username %></h4>
+      <% if @hands_of_player_2.any? %>
+      <div class="row">
+        <% @hands_of_player_2.each do |hand| %>
+          <div class="col-md-4">
+            <div class="card card-thumb text-center">
+              <%= f.radio_button :hand_two_id, hand.id %>
+              <p>Card</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% else %>
+        <%= link_to "distribute cards", distribute_cards_game_hands_path(@game, user_id: @player_2.id), method: :post, class: "btn btn-primary col-md-12" %>
+      <% end %>
+    </div>
+
+  </div>
+
+<% end %>

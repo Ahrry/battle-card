@@ -7,3 +7,10 @@
 
 .start-game-content { margin-top: 100px }
 .submit-button { margin-top: 10px }
+.card {
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 4px;
+}
+.card-thumb { height:100px; }
+.card-big { height:300px }

@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   resources :games, only: [:new, :create, :show] do
     get 'new_user', on: :member
     post 'add_user', on: :member
+    resources :hands, only: [] do
+      post 'distribute_cards', on: :collection
+    end
+    resources :game_turns, only: [:create]
   end
 
 end

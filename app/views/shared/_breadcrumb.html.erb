@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
-  <li><%= link_to "Game", handle_game_path(@game), class: "#{'text-muted' if @active == 'game'}" %></li>
-  <li><%= link_to "Player 1", handle_game_path(@game), class: "#{'text-muted' if @active == 'player_1'}" %></li>
-  <li><%= link_to "Player 2", handle_game_path(@game), class: "#{'text-muted' if @active == 'player_2'}" %></li>
-  <li><%= link_to "Let's go", handle_game_path(@game), class: "#{'text-muted' if @active == 'lets_go'}" %></li>
+  <li><%= link_to "Game", @path, class: "#{'text-muted' if @active == 'game'}" %></li>
+  <li><%= link_to "Player 1", @path, class: "#{'text-muted' if @active == 'player_1'}" %></li>
+  <li><%= link_to "Player 2", @path, class: "#{'text-muted' if @active == 'player_2'}" %></li>
+  <li><%= link_to "Let's go", @path, class: "#{'text-muted' if @active == 'lets_go'}" %></li>
 </ol>

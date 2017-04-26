@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     resources :hands, only: [] do
       post 'distribute_cards', on: :collection
     end
-    resources :game_turns, only: [:create]
+    resources :game_turns, only: [:create] do
+      put 'battle', on: :member
+    end
   end
 
 end

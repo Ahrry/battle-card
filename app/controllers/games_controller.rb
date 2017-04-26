@@ -22,8 +22,14 @@ class GamesController < ApplicationController
   def show
     @hands_of_player_1 = hands_distributed(@player_1) if @player_1
     @hands_of_player_2 = hands_distributed(@player_2) if @player_2
-    @selected_card_1 = @game.game_turns.where(status: GameTurn::IN_PROGRESS).first.hand_one.card_to_play
-    @selected_card_2 = @game.game_turns.where(status: GameTurn::IN_PROGRESS).first.hand_two.card_to_play
+
+    @game_turn_in_progress = @game.game_turns.where(status: GameTurn::IN_PROGRESS).first
+    if @game_turn_in_progress
+      @selected_card_1 = @game_turn_in_progress.hand_one.card_to_play
+      @selected_card_2 = @game_turn_in_progress.hand_two.card_to_play
+    end
+
+    @game_turns_terminated = @game.game_turns.where(status: GameTurn::TERMINATED)
   end
 
   def add_user

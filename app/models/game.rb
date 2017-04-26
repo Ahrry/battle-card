@@ -29,8 +29,8 @@ class Game
 
   def winner
     ranking = Statistics.ranking_of_game(self.id)
-    return unless ranking
-    return if ranking[1] && ranking[1]["_id"] == ranking[0]["_id"]
+    return if ranking.blank?
+    return if ranking[1] && ranking[1]["count"] == ranking[0]["count"]
     return User.find(ranking[0]["_id"])
   end
 

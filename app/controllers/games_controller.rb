@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :find_game, only: [:new_user, :show]
+  before_filter :find_game, only: [:new_user, :show, :add_user]
   before_filter :handle_game_path
 
   def new
@@ -21,6 +21,15 @@ class GamesController < ApplicationController
   def show
   end
 
+  def add_user
+    User.find_or_create({username: params[:username]}, @game)
+    if @game.players.count == 2
+      redirect_to game_path(@game)
+    else
+      redirect_to new_user_game_path(@game)
+    end
+  end
+
   private
   def game_params
     params.require(:game).permit(:name)
@@ -32,14 +41,14 @@ class GamesController < ApplicationController
 
   def handle_game_path
     if @game
-      case @game.hands.count
+      case @game.players.count
       when 0
         @active = "player_1"
         @path = new_user_game_path(@game)
-      when Game::NUMBER_OF_CARDS_BY_DECK
+      when 1
         @active = "player_2"
         @path = new_user_game_path(@game)
-      when Game::NUMBER_OF_CARDS_BY_DECK * 2
+      when 2
         @active = "lets_go"
         @path = game_path(@game)
       end

@@ -12,5 +12,5 @@ Rails.application.routes.draw do
       put 'battle', on: :member
     end
   end
-
+  
 end

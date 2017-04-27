@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_filter :find_game
 
   def create
-    User.find_or_create_user(params[:username], @game)
+    User.find_or_create(params[:username], @game)
   end
 
   private

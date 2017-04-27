@@ -1,6 +1,6 @@
 # Quick start
 
-Compile and generate default cards
+### Compile and generate default cards
 
 ```
   bundle install
@@ -8,18 +8,18 @@ Compile and generate default cards
   bundle exec rake card_to_play:generate_default_card
 ```
 
-Run sever
+### Run sever
 
 ```
   bundle exec rails s
 ```
 
-Custom cards
+### Custom cards
 
 - You can define all objects in `card_objects.yml`
 - You can define all types in `card_types.yml`
 - You can define default cards in `card_to_play.yml`
 
-Custom fight rules
+### Custom fight rules
 
 - You can custom the fight rules in `lib fight_rules.rb`

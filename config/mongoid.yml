@@ -1,7 +1,7 @@
 production:
   clients:
     default:
-      database: <%= ENV['MONGOHQ_URL'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
 
 
 development:
